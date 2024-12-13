@@ -50,6 +50,11 @@ button:hover{
     background-color: black;
     color: white;
 }
+
+/* dialog{
+    display: flex;
+    flex-direction: column;
+} */
 /* #year {
     background-color: yellow;
 }

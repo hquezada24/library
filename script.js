@@ -1,6 +1,7 @@
 const myLibrary = [];
 const table = document.querySelector("table");
 const button = document.querySelector("button");
+const dialog = document.querySelector("dialog");
 
 function Book(name, author, year) {
   this.name = name;
@@ -29,5 +30,8 @@ table.addEventListener("click", (e) => {
   }
 });
 
+button.addEventListener("click", () => {
+  dialog.showModal();
+});
+
 display();
-console.log(myLibrary);
