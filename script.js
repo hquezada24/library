@@ -7,64 +7,59 @@ const submit = document.querySelector("#submit");
 function Book(name, author, year) {
   this.name = name;
   this.author = author;
-  this.year = year;
+  this.year = String(year);
 }
 
 function addBookToLibrary(newName, newAuthor, newYear) {
-  if(myLibrary.length === 0){
-    myLibrary.push(new Book(newName, newAuthor, newYear));
+  // look for duplicates
+  const duplicate = myLibrary.find(book => 
+    book.name === newName.trim() &&
+    book.author === newAuthor.trim() &&
+    book.year === String(newYear).trim()
+  );
+  
+  if (duplicate) {
+    alert("Book already in the list");
   } else {
-    for(let i = 0; i < myLibrary.length; i++){
-      if(myLibrary[i].name === newName && myLibrary[i].author === newAuthor && myLibrary[i].year === newYear){
-        console.log("book already in the list");
-      } else {
-        myLibrary.push(new Book(newName, newAuthor, newYear));
-        console.log(newName);
-        display();
-        break;
-      }
-    }
+    myLibrary.push(new Book(newName, newAuthor, newYear));
+    display(myLibrary[myLibrary.length - 1]);  
   }
 }
 
-addBookToLibrary("Cien años de soledad", "Gabriel Garcia Marquez", 1967);
+function display(book){
+  const tBody = document.querySelector("table").getElementsByTagName("tbody")[0];
 
-function display(){
-  myLibrary.forEach((book) => {
-    const tBody = document.querySelector("table").getElementsByTagName("tbody")[0];
+  const bookRow = document.createElement("tr");
 
-    const bookRow = document.createElement("tr");
+  let bookCell = document.createElement("td");
+  bookCell.textContent = book.name;
 
-    let bookCell = document.createElement("td");
-    bookCell.textContent = book.name;
+  let authorCell = document.createElement("td");
+  authorCell.textContent = book.author;
 
-    let authorCell = document.createElement("td");
-    authorCell.textContent = book.author;
+  let yearCell = document.createElement("td");
+  yearCell.textContent = book.year;
 
-    let yearCell = document.createElement("td");
-    yearCell.textContent = book.year;
+  let readCell = document.createElement("td");
+  let readInput = document.createElement("input");
+  readInput.type = "checkbox";
+  readCell.appendChild(readInput);
 
-    let readCell = document.createElement("td");
-    let readInput = document.createElement("input");
-    readInput.type = "checkbox";
-    readCell.appendChild(readInput);
+  let removeCell = document.createElement("td");
+  let removeButton = document.createElement("button");
+  removeButton.classList.add("remove");
+  removeButton.classList.add(`${book.name.replace(/[^a-zA-z\u00C0-\u017F]/g, "-")}`);
+  removeButton.textContent = "🗑️";
+  removeCell.appendChild(removeButton);
 
-    let removeCell = document.createElement("td");
-    let removeButton = document.createElement("button");
-    removeButton.classList.add("remove");
-    removeButton.classList.add(`${book.name.replace(/[^a-zA-z\u00C0-\u017F]/g, "-")}`);
-    removeButton.textContent = "🗑️";
-    removeCell.appendChild(removeButton);
+  bookRow.appendChild(bookCell);
+  bookRow.appendChild(authorCell);
+  bookRow.appendChild(yearCell);
+  bookRow.appendChild(readCell);
+  bookRow.appendChild(removeCell);
 
-    bookRow.appendChild(bookCell);
-    bookRow.appendChild(authorCell);
-    bookRow.appendChild(yearCell);
-    bookRow.appendChild(readCell);
-    bookRow.appendChild(removeCell);
-
-    //newBook.innerHTML = `<td>${book.name}</td><td>${book.author}</td><td>${book.year}</td><td class="read"><input type="checkbox"></input></td><td><button class="remove">🗑️</button></td>`;
-    tBody.appendChild(bookRow);
-  });
+  //newBook.innerHTML = `<td>${book.name}</td><td>${book.author}</td><td>${book.year}</td><td class="read"><input type="checkbox"></input></td><td><button class="remove">🗑️</button></td>`;
+  tBody.appendChild(bookRow);
 }
 
 table.addEventListener("click", (e) => {
@@ -75,8 +70,6 @@ table.addEventListener("click", (e) => {
     for(let book of myLibrary){
       if(book.name === removing){
         const index = myLibrary.indexOf(book);
-        console.log(myLibrary);
-        console.log(`you are deleting ${book.name}`);
         myLibrary.splice(index, 1);
         console.log(myLibrary);
       }
@@ -95,7 +88,16 @@ submit.addEventListener("click", (e) => {
   const bookYear = document.querySelector("#book-year");
   addBookToLibrary(bookName.value, bookAuthor.value, bookYear.value);
   console.log(myLibrary);
+
+  // Clear input fields
+  bookName.value = "";
+  bookAuthor.value = "";
+  bookYear.value = "";
+
+  // Close the dialog
   dialog.close();
 });
 
-display();
+addBookToLibrary("Cien años de soledad", "Gabriel Garcia Marquez", 1967);
+addBookToLibrary("Pedro Páramo", "Juan Rulfo", 1955);
+addBookToLibrary("El fantasma de Canterville", "Oscar Wilde", 1891);
