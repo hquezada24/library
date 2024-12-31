@@ -4,10 +4,12 @@ const table = document.querySelector("table");
 const dialog = document.querySelector("dialog");
 const submit = document.querySelector("#submit");
 
-function Book(name, author, year) {
-  this.name = name;
-  this.author = author;
-  this.year = String(year);
+class Book {
+  constructor(name, author, year) {
+    this.name = name;
+    this.author = author;
+    this.year = String(year);
+  }
 }
 
 function addBookToLibrary(newName, newAuthor, newYear) {
