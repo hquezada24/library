@@ -14,22 +14,26 @@ class Book {
 
 function addBookToLibrary(newName, newAuthor, newYear) {
   // look for duplicates
-  const duplicate = myLibrary.find(book => 
-    book.name === newName.trim() &&
-    book.author === newAuthor.trim() &&
-    book.year === String(newYear).trim()
+  const duplicate = myLibrary.find(
+    (book) =>
+      book.name === newName.trim() &&
+      book.author === newAuthor.trim() &&
+      book.year === String(newYear).trim()
   );
-  
+
   if (duplicate) {
+    console.log(myLibrary);
     alert("Book already in the list");
   } else {
     myLibrary.push(new Book(newName, newAuthor, newYear));
-    display(myLibrary[myLibrary.length - 1]);  
+    display(myLibrary[myLibrary.length - 1]);
   }
 }
 
-function display(book){
-  const tBody = document.querySelector("table").getElementsByTagName("tbody")[0];
+function display(book) {
+  const tBody = document
+    .querySelector("table")
+    .getElementsByTagName("tbody")[0];
 
   const bookRow = document.createElement("tr");
 
@@ -50,7 +54,9 @@ function display(book){
   let removeCell = document.createElement("td");
   let removeButton = document.createElement("button");
   removeButton.classList.add("remove");
-  removeButton.classList.add(`${book.name.replace(/[^a-zA-z\u00C0-\u017F]/g, "-")}`);
+  removeButton.classList.add(
+    `${book.name.replace(/[^a-zA-z\u00C0-\u017F]/g, "-")}`
+  );
   removeButton.textContent = "🗑️";
   removeCell.appendChild(removeButton);
 
@@ -65,12 +71,15 @@ function display(book){
 }
 
 table.addEventListener("click", (e) => {
-  if(e.target.classList.contains("remove")){
+  if (e.target.classList.contains("remove")) {
     const row = e.target.closest("tr");
     row.remove();
-    let removing = e.target.classList[1].replace(/[^a-zA-Z\u00C0-\u017F]/g, " ");
-    for(let book of myLibrary){
-      if(book.name === removing){
+    let removing = e.target.classList[1].replace(
+      /[^a-zA-Z\u00C0-\u017F]/g,
+      " "
+    );
+    for (let book of myLibrary) {
+      if (book.name === removing) {
         const index = myLibrary.indexOf(book);
         myLibrary.splice(index, 1);
         console.log(myLibrary);
@@ -85,10 +94,20 @@ button.addEventListener("click", () => {
 
 submit.addEventListener("click", (e) => {
   e.preventDefault();
-  const bookName = document.querySelector("#name");
-  const bookAuthor = document.querySelector("#book-author");
-  const bookYear = document.querySelector("#book-year");
-  addBookToLibrary(bookName.value, bookAuthor.value, bookYear.value);
+  const bookName = document.querySelector("#name").value.trim();
+  const bookAuthor = document.querySelector("#book-author").value.trim();
+  const bookYear = document.querySelector("#book-year").value.trim();
+
+  if (
+    bookName.length === 0 ||
+    bookAuthor.length === 0 ||
+    bookYear.length === 0
+  ) {
+    alert("All fields are required");
+    return;
+  } else {
+    addBookToLibrary(bookName, bookAuthor, bookYear);
+  }
   console.log(myLibrary);
 
   // Clear input fields

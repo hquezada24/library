@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Iceland&family=Parkinsans:wght@300..800&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Iceland&family=Parkinsans:wght@300..800&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Library</h1>
+      <h1>Library</h1>
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th id="title">Title</th>
-                    <th id="author">Author</th>
-                    <th id="year">Year</th>
-                    <th id="read" class="read">Read?</th>
-                    <th id="remove" class="read"></th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-        <button id="add">Add a book</button>
+      <table>
+        <thead>
+          <tr>
+            <th id="title">Title</th>
+            <th id="author">Author</th>
+            <th id="year">Year</th>
+            <th id="read" class="read">Read?</th>
+            <th id="remove" class="read"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="add">Add a book</button>
     </main>
     <dialog>
-        <label for="name">Book Title</label>
-        <input id="name" type="text">
-        <label for="book-author">Author</label>
-        <input id="book-author" type="text">
-        <label for="book-year">Year</label>
-        <input id="book-year" type="text">
-        <button id="submit">Submit</button>
+      <label for="name">Book Title</label>
+      <input id="name" type="text" required />
+      <label for="book-author">Author</label>
+      <input id="book-author" type="text" required />
+      <label for="book-year">Year</label>
+      <input id="book-year" type="text" required />
+      <button id="submit">Submit</button>
     </dialog>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
